@@ -8,7 +8,7 @@ To be launch after DSP pipeline.
 This bash script will first create some intermediate files and folders to optimize the calculations.
 
 
-
+<details>
 ```javascript
 reads_analysis/
 
@@ -63,6 +63,7 @@ reads_analysis/
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
 ```
+</details>
 
 ```bash
 sort -T tmp -k1,1 -k4,4 -k2,2n
