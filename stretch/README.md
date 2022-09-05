@@ -93,7 +93,7 @@ reads_analysis/
 │   │       ├── CHH_stretch_pvalue.bed
 │   │       └── CHH_stretch_pvalue_sign.bed
 ├── chr2
-│   ├── chr2_methylation.bed
+│   ├── chr2_methylation.sort.bed
 │   ├── context
 │   │   ├── CG_context.bed
 │   │   ├── CHG_context.bed
@@ -111,7 +111,7 @@ reads_analysis/
 │           ├── CHH_stretch_pvalue.bed
 │           └── CHH_stretch_pvalue_sign.bed
 ├── chr3
-│   ├── chr3_methylation.bed
+│   ├── chr3_methylation.sort.bed
 │   ├── context
 │   │   ├── CG_context.bed
 │   │   ├── CHG_context.bed
@@ -129,7 +129,7 @@ reads_analysis/
 │           ├── CHH_stretch_pvalue.bed
 │           └── CHH_stretch_pvalue_sign.bed
 ├── chr4
-│   ├── chr4_methylation.bed
+│   ├── chr4_methylation.sort.bed
 │   ├── context
 │   │   ├── CG_context.bed
 │   │   ├── CHG_context.bed
@@ -147,7 +147,7 @@ reads_analysis/
 │           ├── CHH_stretch_pvalue.bed
 │           └── CHH_stretch_pvalue_sign.bed
 ├── chr5
-│   ├── chr5_methylation.bed
+│   ├── chr5_methylation.sort.bed
 │   ├── context
 │   │   ├── CG_context.bed
 │   │   ├── CHG_context.bed
