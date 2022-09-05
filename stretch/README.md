@@ -12,6 +12,7 @@ This bash script will first create some intermediate files and folders to optimi
   <summary>Files and folders created</summary>
   
 ```bash
+
 reads_analysis/
 
 ├── chr1
@@ -24,6 +25,14 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
+│   ├── stretch
+│   │   └── pvalue
+│   │       ├── CG_stretch_pvalue.bed
+│   │       ├── CG_stretch_pvalue_sign.bed
+│   │       ├── CHG_stretch_pvalue.bed
+│   │       ├── CHG_stretch_pvalue_sign.bed
+│   │       ├── CHH_stretch_pvalue.bed
+│   │       └── CHH_stretch_pvalue_sign.bed
 ├── chr2
 │   ├── chr2_methylation.bed
 │   ├── context
@@ -34,6 +43,14 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
+│   └── stretch
+│       └── pvalue
+│           ├── CG_stretch_pvalue.bed
+│           ├── CG_stretch_pvalue_sign.bed
+│           ├── CHG_stretch_pvalue.bed
+│           ├── CHG_stretch_pvalue_sign.bed
+│           ├── CHH_stretch_pvalue.bed
+│           └── CHH_stretch_pvalue_sign.bed
 ├── chr3
 │   ├── chr3_methylation.bed
 │   ├── context
@@ -44,6 +61,14 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
+│   └── stretch
+│       └── pvalue
+│           ├── CG_stretch_pvalue.bed
+│           ├── CG_stretch_pvalue_sign.bed
+│           ├── CHG_stretch_pvalue.bed
+│           ├── CHG_stretch_pvalue_sign.bed
+│           ├── CHH_stretch_pvalue.bed
+│           └── CHH_stretch_pvalue_sign.bed
 ├── chr4
 │   ├── chr4_methylation.bed
 │   ├── context
@@ -54,6 +79,14 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
+│   └── stretch
+│       └── pvalue
+│           ├── CG_stretch_pvalue.bed
+│           ├── CG_stretch_pvalue_sign.bed
+│           ├── CHG_stretch_pvalue.bed
+│           ├── CHG_stretch_pvalue_sign.bed
+│           ├── CHH_stretch_pvalue.bed
+│           └── CHH_stretch_pvalue_sign.bed
 ├── chr5
 │   ├── chr5_methylation.bed
 │   ├── context
@@ -64,6 +97,22 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
+│   └── stretch
+│       └── pvalue
+│           ├── CG_stretch_pvalue.bed
+│           ├── CG_stretch_pvalue_sign.bed
+│           ├── CHG_stretch_pvalue.bed
+│           ├── CHG_stretch_pvalue_sign.bed
+│           ├── CHH_stretch_pvalue.bed
+│           └── CHH_stretch_pvalue_sign.bed
+├── genome_stretch
+│   ├── CG_genome_stretch_sign.bed
+│   ├── CHG_genome_stretch_sign.bed
+│   └── CHH_genome_stretch_sign.bed
+├── bed
+│   ├── CG_freq.bed
+│   ├── CHG_freq.bed
+│   └── CHH_freq.bed
 ```
   
 </details>
