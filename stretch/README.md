@@ -64,6 +64,19 @@ awk -v Thresh="$thresh" ' $7 >= Thresh' ${reads_analysis_folder}/${chr}/stretch/
 #### Output : chrX/stretch/pvalue/CG_stretch_pvalue_sign.bed
 
 
+### 4. Concatenating final outputs
+These stretch file per chromosom per context are concatenated into one file per context having genome wide stretches information.
+
+```bash
+mkdir ${reads_analysis_folder}/genome_stretch/ -p
+mkdir ${reads_analysis_folder}/bed/ -p
+for context in CG CHG CHH;
+  cat ${reads_analysis_folder}/chr*/stretch/pvalue/${context}_stretch_pvalue_sign.bed > ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch_sign.bed
+  cat ${reads_analysis_folder}/chr*/context/freq/${context}_freq.bed > ${reads_analysis_folder}/bed/${context}_freq.bed 
+done;
+```
+#### Output : genome_stretch/CG_genome_stretch_sign.bed
+#### Output : bed/CG_freq.bed
 
 
 
