@@ -9,7 +9,7 @@ This bash script will first create some intermediate files and folders to optimi
 
 
 <details>
-```javascript
+```bash
 reads_analysis/
 
 ├── chr1
