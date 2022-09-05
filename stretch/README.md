@@ -2,10 +2,16 @@
 Decription of stretch
 image ?
 
-To be launch after DSP pipeline.
+To be launch after DSP pipeline and the tsv_to_bed script.
 
 ## How it works
-This bash script will first create some intermediate files and folders to optimize the calculations.
+This bash script will first create some intermediate files and folders to optimize the calculations. 
+The steps are : 
+* Extract each chromosoms and sort the lines by : Chr, read name, start position
+The sort is needed to avoid having decreasing start position in Crick strand.
+```bash
+sort -T tmp -k1,1 -k4,4 -k2,2n
+```
 
 
 <details>
@@ -117,9 +123,6 @@ reads_analysis/
   
 </details>
 
-```bash
-sort -T tmp -k1,1 -k4,4 -k2,2n
-```
 ## How to run
 ## Outputs
 ## Known errors
