@@ -10,7 +10,6 @@ This bash script will first create some intermediate files and folders to optimi
 
 
 ```javascript
-```bash
 reads_analysis/
 
 ├── chr1
@@ -63,7 +62,6 @@ reads_analysis/
 │   │       ├── CG_freq.bed
 │   │       ├── CHG_freq.bed
 │   │       └── CHH_freq.bed
-```
 ```
 
 ```bash
