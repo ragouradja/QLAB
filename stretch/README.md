@@ -25,8 +25,8 @@ Chr1    16501582        16501583        073be7c9-69c5-498d-b8c7-b28a6124ca5c    
 
 Make sure that you put the correct paths for these 4 variables before running the script.
 ```bash
-bed_file=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/tsv/
-reads_analysis_folder=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/reads_analysis
+bed_file=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/methylation.bed
+reads_analysis_folder=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/reads_analysis
 
 scripts_folder=/mnt/data2/rradjas/scripts
 genome_ref=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta
