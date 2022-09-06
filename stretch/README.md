@@ -21,7 +21,7 @@ Chr1    16501582        16501583        073be7c9-69c5-498d-b8c7-b28a6124ca5c    
 This bash script will first create some intermediate files and folders to optimize the calculations. 
 The steps are : 
 ### 1. Extract and sort
-Each chromosom are extracted from the inital bedfile and sorted by : read name, start position. The sort is needed to avoid having decreasing start position in - strand.
+Each chromosom are extracted from the inital bedfile and sorted by : read name, start position. The sort is needed to avoid having decreasing start position in Crick strand.
 ```bash
 grep $CHR $bed_file | sort -T tmp -k4,4 -k2,2n > ${reads_analysis_folder}/${chr}/${chr}_methylation.sort.bed
 ```
