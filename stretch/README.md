@@ -75,8 +75,9 @@ for context in CG CHG CHH;
   cat ${reads_analysis_folder}/chr*/context/freq/${context}_freq.bed > ${reads_analysis_folder}/bed/${context}_freq.bed 
 done;
 ```
-#### Output : genome_stretch/CG_genome_stretch_sign.bed
-#### Output : bed/CG_freq.bed
+#### Output : 
+* genome_stretch/CG_genome_stretch_sign.bed
+* bed/CG_freq.bed
 
 
 
@@ -190,6 +191,8 @@ reads_analysis/
 </details>
 
 ## How to run
+```bash
 bash stretch_pipeline.sh
+```
 ## Outputs
 ## Known errors
