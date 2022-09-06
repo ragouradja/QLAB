@@ -17,6 +17,25 @@ Chr1    16501586        16501587        073be7c9-69c5-498d-b8c7-b28a6124ca5c    
 Chr1    16501585        16501586        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
 Chr1    16501582        16501583        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
 ```
+
+
+
+## How to run
+
+
+Make sure that you change the paths of $tss_file$ and $reads_analysis$ before running the script
+```bash
+tsv_file=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/tsv/
+reads_analysis_folder=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/reads_analysis
+
+scripts_folder=/mnt/data2/rradjas/scripts
+genome_ref=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta
+```
+
+```bash
+bash stretch_pipeline.sh
+```
+
 ## How it works
 This bash script will first create some intermediate files and folders to optimize the calculations. 
 The steps are : 
@@ -190,9 +209,5 @@ reads_analysis/
   
 </details>
 
-## How to run
-```bash
-bash stretch_pipeline.sh
-```
 ## Outputs
 ## Known errors
