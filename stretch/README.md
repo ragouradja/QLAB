@@ -23,7 +23,7 @@ Chr1    16501582        16501583        073be7c9-69c5-498d-b8c7-b28a6124ca5c    
 ## How to run
 
 
-Make sure that you change the paths of $tss_file$ and $reads_analysis$ before running the script
+Make sure that you change the paths of $tss_file$ and *reads_analysis* before running the script
 ```bash
 tsv_file=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/tsv/
 reads_analysis_folder=/mnt/data5/rradjas/ONT/Col-0/dsp_col-0/reads_analysis
