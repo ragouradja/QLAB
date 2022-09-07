@@ -83,7 +83,7 @@ awk -v Thresh="$thresh" ' $7 >= Thresh' ${reads_analysis_folder}/${chr}/stretch/
 #### Output : chrX/stretch/pvalue/CG_stretch_pvalue_sign.bed
 
 
-### 4. Concatenating final outputs
+### 5. Concatenating final outputs
 These stretch file per chromosom per context are concatenated into one file per context having genome wide stretches information.
 
 ```bash
