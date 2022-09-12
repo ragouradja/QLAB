@@ -16,6 +16,36 @@ import time
 import sys
 from scipy import stats
 import polars as pl
+import os
+import argparse
+
+def get_args():
+    """Function to get all args
+    Arguments
+    ---------
+
+    
+    meth_read = os.path.abspath(sys.argv[1])
+    output_directory = os.path.abspath(sys.argv[2])
+    genome_path = os.path.abspath(sys.argv[3])
+    """
+    parser = argparse.ArgumentParser(description="Compute stretch detection",
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument("--read_file", "-r", help="Path to bedfile with read information", required = True, type = str, metavar = "")
+    parser.add_argument("--meth_file", "-m", help="Path to bedfile with methylation per position information (chr/start/position/meth%/coverage)", required = True, type = str, metavar = "")
+    parser.add_argument("--output_file", "-o", help="Output filename", required = True, type = str, metavar = "")
+
+    args = parser.parse_args()
+
+    if not os.path.exists(args.read_file):
+        sys.exit(f"{args.read_file} doesn't exist")
+    if not os.path.exists(args.meth_file):
+        sys.exit(f"{args.meth_file} doesn't exist")
+    return args
+
+
+
 
 def get_dict_read(read_file):
     print(read_file)
@@ -53,9 +83,11 @@ def get_dict_pvalue(read_file):
 
 
 #python /mnt/data2/rradjas/scripts/get_stretch.py CHH_context.bed ../../../bedgraph/CHH_context_corrected.bedgraph CHH_stretch_pvalue.bed 
-read_file = sys.argv[1]
-meth_bedgraph_file = sys.argv[2] # /mnt/data5/rradjas/ONT/Col-0/bedgraph --> chr start end frac cov
-output_file = sys.argv[3]
+args = get_args()
+
+read_file = args.read_file
+meth_bedgraph_file = args.meth_file # /mnt/data5/rradjas/ONT/Col-0/bedgraph --> chr start end frac cov
+output_file = args.output_file
 print(f"Writing in {output_file}")
 start_time = time.time()
 
