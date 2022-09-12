@@ -34,7 +34,7 @@ genome_ref=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta
 ```
 
 ```bash
-bash ${scripts_folder}/stretch_pipeline.sh
+bash QLAB/scripts/stretch_pipeline.sh
 ```
 
 ## How it works
