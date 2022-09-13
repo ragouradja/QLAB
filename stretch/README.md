@@ -1,4 +1,6 @@
 # Stretch detection from DSP tsv file
+
+
 Decription of stretch
 image ?
 
@@ -27,13 +29,12 @@ Make sure that you put the correct paths for these 4 variables before running th
 ```bash
 bed_file=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/methylation.bed
 reads_analysis_folder=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/reads_analysis
-
 scripts_folder=/mnt/data2/rradjas/scripts
 genome_ref=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta
 ```
 
 ```bash
-bash stretch_pipeline.sh
+bash QLAB/scripts/stretch_pipeline.sh
 ```
 
 ## How it works
