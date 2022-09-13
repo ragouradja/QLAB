@@ -143,14 +143,18 @@ pigz datasets/CG/samples_CG_poses_negative.tsv
 
 ### 2.3 Balancing step for CHG and CHH
 ```bash
-
 # Will create datasets/CHG/balanced/samples_CHG_poses_negative.10m.balanced.tsv
-python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHG/samples_CHG_poses_positive.10m.tsv --neg_file datasets/CHG/samples_CHG_poses_negative.10m.tsv --context CHG
+python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHG/samples_CHG_poses_positive.10m.tsv 
+                                        --neg_file datasets/CHG/samples_CHG_poses_negative.10m.tsv 
+                                        --context CHG
 pigz datasets/CHG/samples_CHG_poses_negative.10m.tsv
 
 # Will create datasets/CHH/balanced/samples_CHH_poses_negative.10m.balanced.tsv
-python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHH/samples_CHH_poses_positive.10m.tsv --neg_file datasets/CHH/samples_CHH_poses_negative.10m.tsv --context CHH
+python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHH/samples_CHH_poses_positive.10m.tsv
+                                        --neg_file datasets/CHH/samples_CHH_poses_negative.10m.tsv 
+                                        --context CHH
 pigz datasets/CHH/samples_CHH_poses_negative.10m.tsv
+
 
 ```
 
