@@ -1,4 +1,6 @@
+# Biseq mode view in IGV from ONT data
 
+To be launch after stretch_pipeline.sh to have chrX/chrX_methylation.bed file with read informations.
 
 
 # Known errors
