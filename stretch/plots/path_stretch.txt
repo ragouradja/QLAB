@@ -1,0 +1,6 @@
+WT test_data/WT/CG_genome_stretch.bed 53
+CMT3 test_data/CMT3/CG_genome_stretch.bed 16.23
+CMT2 test_data/CMT2/CG_genome_stretch.bed 11.8
+RDR2 test_data/RDR2/CG_genome_stretch.bed 15.6
+DRM12CMT3 test_data/DRM12CMT3/CG_genome_stretch.bed 29.57
+
