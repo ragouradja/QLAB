@@ -1,56 +1,7 @@
 """ Create bed file with boundings of reads"""
 
 """
-Sort the file to avoid having position reversed in minus strand with : sort -k1,1 -k4,4 -k2,2n chr1_methylation.bed > chr1_methylation.sort.bed
-Error :
 
-###
-Chr1 / Chr1_RagTag --> custom name of chr
-Custom chr name are not processed correctly for now
-###
-
-
-###
-input chrom for all; folder architecture :
-
-../data/chr1/meth_chr1.bed
-../data/chr2/meth_chr2.bed
-../data/chr3/meth_chr3.bed
-../data/chr4/meth_chr4.bed
-../data/chr5/meth_chr5.bed
-
-or
-
-../data/chrom_folder/meth_chr1.bed
-../data/chrom_folder/meth_chr2.bed
-../data/chrom_folder/meth_chr3.bed
-../data/chrom_folder/meth_chr4.bed
-../data/chrom_folder/meth_chr5.bed
-###
-
-
-###
-Polars : 
-ImportError : cannot import name 'TypeGuard' 
-Solution : pip install typing-extensions --upgrade
-###
-
-
-###
-KeyError: '0001e11e-a6bd-4a0b-83b3-989a7bdfe519'
---> Read name not found in fasta file : fastaFromBed didn't work
-Solution : Give a genome fasta file with formated lines 
-
-wrong fasta file : 
->Chr1
-sequence chr1 all in one line
->Chr2
-sequence chr2 all in one line
-
-correct fasta file:
->Chr1
-TAAAACCTAAAACCTAAAACCTAAAACCTAAAACCTAAACCCTAAACCCTAAAACCCTAA
-ACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAAACCTAAACCT 
 ...
 ###
 
@@ -93,11 +44,11 @@ def get_args():
     genome_path = os.path.abspath(sys.argv[3])
     """
     parser = argparse.ArgumentParser(description="Generate bam file from ONT reads data",
-    formatter_class=argparse.MetavarTypeHelpFormatter)
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--file","-f", help="Path to file with reads informations for one chromosome.", type=str, required=True, metavar="chr_file")
     parser.add_argument("--genome","-g", help="Path to the genome fasta file (Default : Col-CEN)", type=str, metavar="genome", required = False, default = "/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta")
     parser.add_argument("--basename_output","-base", help="Output file without extension", type=str, required = True)
-    parser.add_argument("--output","-o", help="Path to output.", type=str, default = ".", required = False)
+    parser.add_argument("--output","-o", help="Path to output directory.", type=str, default = ".", required = False)
     parser.add_argument("--fast", help="Loading data into memory to work faster (Relatively high memory usage, need at least 2.5*FILE_SIZE Go of RAM).", default=False, action="store_true")
     parser.add_argument("--all", help="Compute all chromosomes in parallel.", default=False, action="store_true")
     args = parser.parse_args()
@@ -108,9 +59,9 @@ def get_args():
     if not os.path.exists(args.genome):
         sys.exit("Genome file doesn't exist")
 
-    if args.all:
-        if "chr1" not in args.basename_output:
-            sys.exit("Make sure that there is 'chr1' in the output basename")
+    # if args.all:
+    #     if "chr1" not in args.basename_output:
+    #         sys.exit("Make sure that there is 'chr1' in the output basename")
 
     return args
 
@@ -129,19 +80,20 @@ def read_ref(reference_path, chrom):
                     genome[chr] += list(line.strip())
     return genome
 
-def get_chrs_path(args, sam_output, bam_basename):
+def get_chrs_path(args):
     all_files = []
     path = os.path.abspath(args.file)
     print("Processing all chromosomes in parallel.")
     for i in range(1,6):
         bedfile = re.sub("chr\d",f"chr{i}",path)
-        sam = re.sub("chr\d",f"chr{i}",sam_output)
-        bam = re.sub("chr\d",f"chr{i}",bam_basename)
+        # sam = re.sub("chr\d",f"chr{i}",sam_output)
+        # bam = re.sub("chr\d",f"chr{i}",bam_basename)
 
         if not os.path.exists(bedfile):
             print(f"{path} does not exists")
         else:
-            all_files.append([bedfile, sam, bam])
+            # all_files.append([bedfile, sam, bam])
+            all_files.append(bedfile)
     return all_files
 
 
@@ -173,7 +125,6 @@ def change_base(sequence, positions, base):
         if sequence[i] in ["T","A"]:
             sequence[i] = "N"
         else:
-            print("ok")
             sequence[i] = base
     return sequence
 
@@ -205,20 +156,18 @@ def create_sam_fast(df_dict, SAM_output, BAM_output, genome, args, chrom_name):
             sequence = genome[chrom][first_position:last_position]
             sequence = "".join(change_base(sequence, position_in_seq, base))
             write_sam(read, flag_strand[strand], chrom, first_position, sequence, sam_filout)
-    create_bam(BAM_output, SAM_output, args, chrom_name)
 
 
 
 def create_sam_slow(bedfile, SAM_output, BAM_output, genome, args, chrom_name):
     
-    # SORT IF NEEDED
     prev_read = ""
     act_read = ""
     bases_strand = {"+":"T", "-":"A"}
     flag_strand = {"+":  1, "-" : 17}
     pos_to_change = np.array([], dtype = np.int8)
 
-    with open(bedfile) as bed_filin, open(SAM_output, "w") as sam_filout:
+    with open(bedfile) as bed_filin, open(SAM_output, "a") as sam_filout:
         lines = bed_filin.readline()
         items_first = lines.split()
         prev_read = items_first[3]
@@ -257,11 +206,11 @@ def create_sam_slow(bedfile, SAM_output, BAM_output, genome, args, chrom_name):
         seq = genome[prev_chrom][first_position:last_position]
         seq = "".join(change_base(seq, pos_to_change, base))
         write_sam(prev_read, flag_strand[prev_strand], prev_chrom, first_position, seq, sam_filout)
-    create_bam(BAM_output, SAM_output, args, chrom_name)
+    
 
 
 
-def create_bam(bam_output, output_sam, args, chrom_name):
+def create_bam(bam_output, output_sam, args):
 
     genome_basename =  os.path.basename(args.genome)
     genome_name = os.path.splitext(genome_basename)[0]
@@ -269,10 +218,10 @@ def create_bam(bam_output, output_sam, args, chrom_name):
     chrom_sizes = f"{genome_dir}/{genome_name}_chrsize.txt"
     if not os.path.exists(chrom_sizes):
         cmd_chromsize_samtools = f"samtools faidx {args.genome}"
-        print(f"{chrom_name} :: {cmd_chromsize_samtools}")
+        print(f"{cmd_chromsize_samtools}")
         subprocess.run([cmd_chromsize_samtools], shell=True)
         cmd_chromsize_cut = f"cut -f1,2 {args.genome}.fai > {chrom_sizes}"
-        print(f"{chrom_name} :: {cmd_chromsize_cut}")
+        print(f"{cmd_chromsize_cut}")
         subprocess.run([cmd_chromsize_cut], shell=True)
 
     header_bam = f"{os.path.dirname(bam_output)}/header.bam"
@@ -284,19 +233,19 @@ def create_bam(bam_output, output_sam, args, chrom_name):
             line_header = f"@SQ\tSN:{chrom}\tLN:{size}\n" # header bam
             filout.write(line_header)
     paste_header = f"cat {header_bam} {output_sam} > temp; mv temp {output_sam}"
-    print(f"{chrom_name} :: {paste_header}")
+    print(f"{paste_header}")
     subprocess.run([paste_header], shell=True)
 
     samtools_bam = f"samtools view -b {output_sam} > {bam_output}"
-    print(f"{chrom_name} :: {samtools_bam}")
+    print(f"{samtools_bam}")
     subprocess.run([samtools_bam], shell=True)
 
     samtools_sort = f"samtools sort {bam_output} > {bam_output[:-4]}.sort.bam"
-    print(f"{chrom_name} :: {samtools_sort}")
+    print(f"{samtools_sort}")
     subprocess.run([samtools_sort], shell=True)
 
     samtools_index = f"samtools index {bam_output[:-4]}.sort.bam"
-    print(f"{chrom_name} :: {samtools_index}")
+    print(f"{samtools_index}")
     subprocess.run([samtools_index], shell=True)
 
 
@@ -325,7 +274,6 @@ def main_slow(bedfile_path, SAM_output, BAM_output, genome_path, args):
 
 
 if __name__ == "__main__":
-    # python /mnt/data2/rradjas/scripts/ont_to_bam.py --file meth_chr1.bed --genome /mnt/data2/rradjas/genome/Col-CEN/Col-CEN_v1.2.fasta --bam_output Cmt3_chr1.bam --output .
     start_time = time.time()
     
     args = get_args()
@@ -345,12 +293,14 @@ if __name__ == "__main__":
 
 
     if args.all:
-        list_files = get_chrs_path(args, SAM_output, BAM_output)
+        list_files = get_chrs_path(args)
         N_cpu = len(list_files)
         print(f"Using {N_cpu} CPUs")
         Parallel(n_jobs = N_cpu, verbose = 0, prefer="processes")(delayed(run_function)
-        (bedfile_path, SAM_path, BAM_path, args.genome, args) for bedfile_path, SAM_path, BAM_path in list_files)
+        (bedfile_path, SAM_output, BAM_output, args.genome, args) for bedfile_path in list_files)
     else:
         run_function(bedfile, SAM_output, BAM_output, args.genome, args)
+
+    create_bam(BAM_output, SAM_output, args)
 
     print(time.time() - start_time)

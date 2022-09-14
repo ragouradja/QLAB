@@ -1,3 +1,7 @@
+##############################################################
+############                PATHS                 ############
+##############################################################
+
 raw_mutli_fast5_C=/mnt/data5/rradjas/all_contexts/m6a/test_script/neg
 single_fast5=single_C
 
@@ -19,7 +23,9 @@ script_dir=/mnt/data2/rradjas/scripts
 rerio_model=/users/a2e/quadrana/miniconda3/lib/python3.8/site-packages/megalodon/rerio/basecall_models/
 
 
-
+N_LINES=10000000
+N_LINES_TRAIN=72000000
+N_LINES_VALID=8000000
 ##############################################################
 ############              CYTOSINES               ############
 ##############################################################
@@ -47,9 +53,9 @@ megalodon  $single_fast5  \
 
 # Tombo preprocess
 tombo preprocess annotate_raw_with_fastqs --fast5-basedir  $single_fast5 \
---fastq-filenames megalodon_output_C/basecalls.fastq    \
---basecall-group Basecall_1D_000 --basecall-subgroup BaseCalled_template \
---processes 40 --overwrite 
+                                          --fastq-filenames megalodon_output_C/basecalls.fastq    \
+                                          --basecall-group Basecall_1D_000 --basecall-subgroup BaseCalled_template \
+                                          --processes 40 --overwrite 
 
 # Tombo resquiggle
 tombo resquiggle $single_fast5 $ref_genome  \
@@ -75,10 +81,10 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-# Selecting 10M lines
-shuf -n 10000000 datasets/CG/samples_CG_poses_positive.tsv > datasets/CG/samples_CG_poses_positive.10m.tsv
+# Randomly selecting 10M lines
+shuf -n $N_LINES datasets/CG/samples_CG_poses_positive.tsv > datasets/CG/samples_CG_poses_positive.10m.tsv
 # Tar using multiprocess (faster)
-pigz datasets/CG/samples_CG_poses_positive.tsv
+pigz -f datasets/CG/samples_CG_poses_positive.tsv
 
 
 
@@ -92,8 +98,8 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-shuf -n 10000000 datasets/CG/samples_CG_poses_negative.tsv > datasets/CG/samples_CG_poses_negative.10m.tsv
-pigz datasets/CG/samples_CG_poses_negative.tsv
+shuf -n $N_LINES datasets/CG/samples_CG_poses_negative.tsv > datasets/CG/samples_CG_poses_negative.10m.tsv
+pigz -f datasets/CG/samples_CG_poses_negative.tsv
 
 # CHG
 # POSITIVE          
@@ -106,8 +112,8 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-shuf -n 10000000 datasets/CHG/samples_CHG_poses_positive.tsv > datasets/CHG/samples_CHG_poses_positive.10m.tsv
-pigz datasets/CHG/samples_CG_poses_positive.tsv
+shuf -n $N_LINES datasets/CHG/samples_CHG_poses_positive.tsv > datasets/CHG/samples_CHG_poses_positive.10m.tsv
+pigz -f datasets/CHG/samples_CG_poses_positive.tsv
 
 # NEGATIVE
 deepsignal_plant extract --fast5_dir $single_fast5 \
@@ -119,8 +125,8 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-shuf -n 10000000 datasets/CHG/samples_CHG_poses_negative.tsv > datasets/CHG/samples_CHG_poses_negative.10m.tsv
-pigz datasets/CHG/samples_CHG_poses_negative.tsv
+shuf -n $N_LINES datasets/CHG/samples_CHG_poses_negative.tsv > datasets/CHG/samples_CHG_poses_negative.10m.tsv
+pigz -f datasets/CHG/samples_CHG_poses_negative.tsv
 
 
 # CHH
@@ -134,8 +140,8 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-shuf -n 10000000 datasets/CHH/samples_CHH_poses_positive.tsv > datasets/CHH/samples_CHH_poses_positive.10m.tsv
-pigz datasets/CHH/samples_CHH_poses_positive.tsv
+shuf -n $N_LINES datasets/CHH/samples_CHH_poses_positive.tsv > datasets/CHH/samples_CHH_poses_positive.10m.tsv
+pigz -f datasets/CHH/samples_CHH_poses_positive.tsv
 
 # NEGATIVE
 deepsignal_plant extract --fast5_dir $single_fast5 \
@@ -147,8 +153,8 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-shuf -n 10000000 datasets/CHH/samples_CHH_poses_negative.tsv > datasets/CHH/samples_CHH_poses_negative.10m.tsv
-pigz datasets/CHH/samples_CHH_poses_negative.tsv
+shuf -n $N_LINES datasets/CHH/samples_CHH_poses_negative.tsv > datasets/CHH/samples_CHH_poses_negative.10m.tsv
+pigz -f datasets/CHH/samples_CHH_poses_negative.tsv
 
 
 #######################################
@@ -156,12 +162,16 @@ pigz datasets/CHH/samples_CHH_poses_negative.tsv
 #######################################
 
 # Will create datasets/CHG/balanced/samples_CHG_poses_negative.10m.balanced.tsv
-python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHG/samples_CHG_poses_positive.10m.tsv --neg_file datasets/CHG/samples_CHG_poses_negative.10m.tsv --context CHG
-pigz datasets/CHG/samples_CHG_poses_negative.10m.tsv
+python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHG/samples_CHG_poses_positive.10m.tsv \
+                                        --neg_file datasets/CHG/samples_CHG_poses_negative.10m.tsv \
+                                        --context CHG
+pigz -f datasets/CHG/samples_CHG_poses_negative.10m.tsv
 
 # Will create datasets/CHH/balanced/samples_CHH_poses_negative.10m.balanced.tsv
-python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHH/samples_CHH_poses_positive.10m.tsv --neg_file datasets/CHH/samples_CHH_poses_negative.10m.tsv --context CHH
-pigz datasets/CHH/samples_CHH_poses_negative.10m.tsv
+python ${script_dir}/balance_pos_neg.py --pos_file datasets/CHH/samples_CHH_poses_positive.10m.tsv \
+                                        --neg_file datasets/CHH/samples_CHH_poses_negative.10m.tsv \
+                                        --context CHH
+pigz -f datasets/CHH/samples_CHH_poses_negative.10m.tsv
 
 
 
@@ -229,9 +239,9 @@ deepsignal_plant extract --fast5_dir $m6a_single_pos \
                          --nproc 20 
 
 # Selecting 10M lines
-shuf -n 10000000 datasets/A/samples_A_positive.tsv  > datasets/A/samples_A_positive.10m.tsv 
+shuf -n $N_LINES datasets/A/samples_A_positive.tsv  > datasets/A/samples_A_positive.10m.tsv 
 # Tar using multiprocess (faster)
-pigz datasets/A/samples_A_positive.tsv 
+pigz -f datasets/A/samples_A_positive.tsv 
 
 
 # NEGATIVE          
@@ -244,9 +254,9 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --nproc 20 
 
 # Selecting 10M lines
-shuf -n 10000000 datasets/A/samples_A_negative.tsv  > datasets/A/samples_A_negative.10m.tsv 
+shuf -n $N_LINES datasets/A/samples_A_negative.tsv  > datasets/A/samples_A_negative.10m.tsv 
 # Tar using multiprocess (faster)
-pigz datasets/A/samples_A_negative.tsv 
+pigz -f datasets/A/samples_A_negative.tsv 
 
 
 
@@ -273,9 +283,9 @@ cat datasets/A/samples_A_positive.10m.tsv  \
     datasets/CHH/balanced/samples_CHH_poses_negative.10m.balanced.tsv | shuf > training/concat_A_CG_CHG_CHH.80m.tsv
 
 # TRAIN SET (90% of data)
-head -n 72000000  training/concat_A_CG_CHG_CHH.80m.tsv > training/train/samples_A_CG_CHG_CHH.72m.train.tsv
+head -n $N_LINES_TRAIN  training/concat_A_CG_CHG_CHH.80m.tsv > training/train/samples_A_CG_CHG_CHH.72m.train.tsv
 # VALIDATION SET (10% of data)
-tail -n 8000000  training/concat_A_CG_CHG_CHH.80m.tsv > training/valid/samples_A_CG_CHG_CHH.8m.valid.tsv
+tail -n $N_LINES_VALID  training/concat_A_CG_CHG_CHH.80m.tsv > training/valid/samples_A_CG_CHG_CHH.8m.valid.tsv
 
 rm training/concat_A_CG_CHG_CHH.80m.tsv
 
