@@ -95,6 +95,8 @@ tombo resquiggle $single_fast5 $ref_genome  \
 ```
 
 ### 2.2 Data extraction
+
+Extraction example for CG positive data :
 ```bash
 
 # CG
@@ -108,13 +110,15 @@ deepsignal_plant extract --fast5_dir $single_fast5 \
                          --mod_loc 0 \
                          --nproc 20 
 
-# Selecting 10M lines
+# Randomly selecting 10M lines
 shuf -n 10000000 datasets/CG/samples_CG_poses_positive.tsv > datasets/CG/samples_CG_poses_positive.10m.tsv
 # Tar using multiprocess (faster)
 pigz datasets/CG/samples_CG_poses_positive.tsv
+```
+After extraction, you will have a certain amount of lines (cytosines), **make sure that you have at least 10M lines if you want to create datasets with 10M positive and 10M negative.**
 
 
-
+```bash
 # NEGATIVE
 deepsignal_plant extract --fast5_dir $single_fast5 \
                          --reference_path $ref_genome \
