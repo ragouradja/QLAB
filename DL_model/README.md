@@ -2,7 +2,7 @@
 
 
 
-# How it work
+# How it works
 
 ## 1. Path variables
 * raw_mutli_fast5_C
