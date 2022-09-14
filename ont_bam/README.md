@@ -66,7 +66,7 @@ Need to be activated with `--fast`. Will read all 5 chromosomes files in paralle
 <img src="https://user-images.githubusercontent.com/71189947/190192041-2315610f-ffa7-4cf9-b6e3-6e2b5b1d3623.png" width="700" height="500"/>
 </p>
 
-### Time comparaison
+### Time comparison
 <p align="center">
 <img src="https://user-images.githubusercontent.com/71189947/190188112-dae6ee8a-211f-4118-a64f-2f35eb4d692e.png" width="700" height="500"/>
 </p>
