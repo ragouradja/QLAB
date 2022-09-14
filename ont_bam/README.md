@@ -3,6 +3,10 @@
 To be launch after stretch_pipeline.sh to have chrX/chrX_methylation.bed file with read informations.
 
 
+## Slow and Fast mode
+
+![image](https://user-images.githubusercontent.com/71189947/190188112-dae6ee8a-211f-4118-a64f-2f35eb4d692e.png)
+
 # Known errors
 
 ```bash
