@@ -1,7 +1,7 @@
 # Histogram, Violin and Box plot for stretches data
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --help
+$ python stretch_plot.py --help
 
 usage: stretch_plot.py [-h] --file FILE [--outdir OUTDIR] [--hist] [--box] [--violin] [--hist_context] [--title_hist]
                        [--title_violin] [--ylab_hist] [--ylab_violin] [--ylab_box] [--output_hist] [--output_violin]
@@ -56,7 +56,7 @@ DRM12CMT3 test_data/DRM12CMT3/CG_genome_stretch.bed 29.57
 To use `--hist` `--violin`, it is preferable to use the files containing statistically significant stretches files : 
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --file path_stretch_sign.txt --hist --violin
+$ python stretch_plot.py --file path_stretch_sign.txt --hist --violin
 ```
 
 If you want the histogram to be per context, you can use `--hist_context` argument : 
@@ -73,5 +73,5 @@ The default output filename for histogram is `hist_stretch.pdf` but if you ask f
 To use `--box`,  it is preferable to use the files containing all stretches files to see stretch that are not statistically significant and those that are : 
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --file path_stretch.txt --box
+$ python stretch_plot.py --file path_stretch.txt --box
 ```
