@@ -1,6 +1,5 @@
 # Histogram, Violin and Box plot for stretches data
 
-Script to use : 
 ```bash
 $ python ${script_dir}/stretch_plot.py --help
 
@@ -44,7 +43,7 @@ The `--file` argument is mandatory and need to be a file containing : `NAME | PA
 `NAME` and `PATH` are mandatory, `NORM` can be empty. Example with `NORM` value :
  
 ```bash
-$ cat data_path.txt
+$ cat test_data/data_path.txt
 WT test_data/WT/CG_genome_stretch.bed 53
 CMT3 test_data/CMT3/CG_genome_stretch.bed 16.23
 CMT2 test_data/CMT2/CG_genome_stretch.bed 11.8
