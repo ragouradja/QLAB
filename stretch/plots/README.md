@@ -54,10 +54,19 @@ DRM12CMT3 test_data/DRM12CMT3/CG_genome_stretch.bed 29.57
 
 To use `--hist` `--violin`, it is preferable to use the files containing statistically significant stretches files : 
 
+## Histogram and Violin plot
 ```bash
 $ python ${script_dir}/stretch_plot.py --file path_stretch_sign.txt --hist --violin
 ```
-
+If you want the histogram to be per context, you can use `--hist_context` argument : 
+```bash
+$ python stretch_plot.py --file path_stretch_sign.txt --hist --hist_context
+New name of histogram output file : CG_hist.pdf
+You can change it with --output_hist
+Drawing histogram...
+```
+The default output filename for histogram is `hist_stretch.pdf` but if you ask for one histogram per context, `CG` must be on the output filename in order to create a pdf file for `CG` `CHG` and `CHH`, otherwise a default name is used with `CG` in the name. You can change the name of the output file with `--output_hist`.
+## Boxplot of pvalues
 To use `--box`,  it is preferable to use the files containing all stretches files : 
 
 ```bash
