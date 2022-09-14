@@ -258,7 +258,7 @@ rm training/concat_A_CG_CHG_CHH.80m.tsv
 ```
 
 ## 5. Model training
-
+Having the training and validation set, we can run the model training :
 ```bash
 CUDA_VISIBLE_DEVICES=0 deepsignal_plant train --train_file training/train/samples_A_CG_CHG_CHH.72m.train.tsv \
                                               --valid_file training/valid/samples_A_CG_CHG_CHH.8m.valid.tsv \
