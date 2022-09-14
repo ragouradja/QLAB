@@ -16,7 +16,7 @@ get_stretch(){
                                                  --output_file $reads_analysis_folder/${chr}/context/freq/${context}_freq.bed
 
         echo "Sorting" ${context} context
-        sort -T tmp -k1,1 -k4,4 -k2,2n $reads_analysis_folder/${chr}/context/${context}_context.bed > $reads_analysis_folder/${chr}/context/${context}_context.sort.bed
+        sort -T tmp -k4,4 -k2,2n $reads_analysis_folder/${chr}/context/${context}_context.bed > $reads_analysis_folder/${chr}/context/${context}_context.sort.bed
         rm  $reads_analysis_folder/${chr}/context/${context}_context.bed 
 
         echo "Compute stretches detection" ${context} context
