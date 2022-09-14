@@ -65,3 +65,6 @@ done;
 end_time=$(date +%s) 
 
 echo "Total time : " $(( end_time - start_time ))
+
+
+
