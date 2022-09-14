@@ -66,14 +66,22 @@ Need to be activated with `--fast`. Will read all 5 chromosomes files in paralle
 <img src="https://user-images.githubusercontent.com/71189947/190192041-2315610f-ffa7-4cf9-b6e3-6e2b5b1d3623.png" width="700" height="500"/>
 </p>
 
+* At the beggining, the file (or files if `--all`) is loaded into memory as a dataframe : `Loading data in memory` step
+* The dataframe is converted into a dictionary, a python object that consums less RAM memory : `Converting dataframe into dictionary` step
+* When the conversion is done, the RAM memory occupied by the dataframe is freed : `Memory used by dataframe is freed` step
+* Then, the whole computation is done only with the dictionary : `Using dictionary format to work` step
+
+If `--all` is activated, there will be 5 dataframes and 5 dictionaries (not necessarily loaded at the same time, some chromosome files are faster to process like chr2) which use a lot of RAM memory to be 4x faster than slow mode.
+
 ### Time comparison
 <p align="center">
 <img src="https://user-images.githubusercontent.com/71189947/190188112-dae6ee8a-211f-4118-a64f-2f35eb4d692e.png" width="700" height="500"/>
 </p>
-Since chr1 is the largest file, it limits the computation time. So if the chr1 file takes 2500 sec to be done, then the whole genome should take also around 2500 sec in slow mode for Col-0 (50X).
+Since chr1 is the largest file, it limits the computation time. So if the chr1 file takes 2500 sec to be done, then the whole genome should take also around 2500 sec in slow mode for Col-0 (50X). Therefore, the whole genome should take around 600sec in fast mode (be careful with the RAM memory usage).
 
 # Known errors
 
+## IndexError: list index out of range
 ```bash
 
 Error :
@@ -98,25 +106,42 @@ Traceback (most recent call last):
   File "/mnt/data2/rradjas/scripts/ont_to_bam.py", line 120, in change_base
     if sequence[i] in ["T","A"]:
 IndexError: list index out of range
-"""
-Solution : 
-Sort the file to avoid having position reversed in `- strand` with : `sort -k1,1 -k4,4 -k2,2n chr1_methylation.bed > chr1_methylation.sort.bed`
-
-
-###
-Chr1 / Chr1_RagTag --> custom name of chr
-Custom chr name are not processed correctly for now
-###
-
-###
-Polars : 
-
-ModuleNotFoundError: No module named 'polars'
-Solution :  pip install polars
-
-ImportError : cannot import name 'TypeGuard' 
-Solution : pip install typing-extensions --upgrade
-###
-
-
 ```
+
+Solution : 
+Sort the file to avoid having position reversed in `- strand` with :
+```bash
+sort -k1,1 -k4,4 -k2,2n chr1_methylation.bed > chr1_methylation.sort.bed
+```
+or to sort all chromosome files :
+```bash
+for i in {1..5}; do
+  sort -k4,4 -k2,2n chr${i}/chr${i}_methylation.bed > chr${i}/chr${i}_methylation.sort.bed
+  #rm chr${i}/chr${i}_methylation.bed
+done 
+```
+You can also remove the old file if everything went well.
+
+
+
+## Packages
+Polars : 
+```bash
+ModuleNotFoundError: No module named 'polars'
+```
+
+```bash
+Solution :  pip install polars
+```
+TypeGuard :
+```bash
+ImportError : cannot import name 'TypeGuard' 
+```
+```bash
+Solution : pip install typing-extensions --upgrade
+```
+
+## Custom chromosome name
+
+Try to use conventional names of chromosomes : Chr1 Chr2 Chr3 Chr4 Chr5; in fasta file.
+Do not use for example `Chr1_RagTag` name which comes from a genome assembly
