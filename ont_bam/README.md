@@ -28,11 +28,31 @@ optional arguments:
 
 By default, the script will run in slow mode for one chromosome given in `--file` and will use Col-CEN genome (you can change it with `--genome`).
 
-
+Generate BAM file for chromosome 1 in slow mode :
 ```bash
-$ python ont_to_bam.py --file 
+$ python ont_to_bam.py  --file chr1/chr1_methylation.bed -base col0_test
 ```
 
+Generate BAM file for all chromosomes if by changing 'chr1' by 'chrX' (X being 2,3,4,5) we can reach the BED file of all 5 chromosomes :
+```bash
+$ python ont_to_bam.py  --file chr1/chr1_methylation.bed -base col0_test --all
+```
+
+Generate BAM file for all chromosomes in Fast mode :
+
+```bash
+$ python ont_to_bam.py  --file chr1/chr1_methylation.bed -base col0_test --all --fast
+```
+
+Generate BAM file for all chromosomes in Fast mode :
+```bash
+$ python ont_to_bam.py  --file chr1/chr1_methylation.bed -base col0_test --all --fast
+```
+
+If you have all chromosomes in one file (with small data), use `--all_in_one` instead of `--all` :
+```bash
+$ python ont_to_bam.py  --file col_test.bed -base all_one --all_in_one 
+```
 
 ## Slow and Fast mode
 ### Slow mode
@@ -54,8 +74,33 @@ Need to be activated with `--fast`. Wille read all 5 chromosomes files in parall
 # Known errors
 
 ```bash
-Sort the file to avoid having position reversed in minus strand with : sort -k1,1 -k4,4 -k2,2n chr1_methylation.bed > chr1_methylation.sort.bed
+
 Error :
+
+joblib.externals.loky.process_executor._RemoteTraceback:
+"""
+Traceback (most recent call last):
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 436, in _process_worker
+    r = call_item()
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 288, in __call__
+    return self.fn(*self.args, **self.kwargs)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/joblib/_parallel_backends.py", line 595, in __call__
+    return self.func(*args, **kwargs)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/joblib/parallel.py", line 262, in __call__
+    return [func(*args, **kwargs)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/joblib/parallel.py", line 262, in <listcomp>
+    return [func(*args, **kwargs)
+  File "/mnt/data2/rradjas/scripts/ont_to_bam.py", line 267, in main_slow
+    create_sam_slow(bedfile_path, SAM_output, BAM_output, genome, args, chrom_name)
+  File "/mnt/data2/rradjas/scripts/ont_to_bam.py", line 182, in create_sam_slow
+    seq = "".join(change_base(seq, pos_to_change, base))
+  File "/mnt/data2/rradjas/scripts/ont_to_bam.py", line 120, in change_base
+    if sequence[i] in ["T","A"]:
+IndexError: list index out of range
+"""
+Solution : 
+Sort the file to avoid having position reversed in `- strand` with : `sort -k1,1 -k4,4 -k2,2n chr1_methylation.bed > chr1_methylation.sort.bed`
+
 
 ###
 Chr1 / Chr1_RagTag --> custom name of chr
