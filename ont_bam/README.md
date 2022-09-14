@@ -1,8 +1,7 @@
-# Biseq mode view in IGV from ONT data
+# Creating BAM file from ONT BED file to visualize methylation state in IGV.
 
-Creating BAM file with Bisulfite treatment simulated from ONT BED file.
 
-To be launch after stretch_pipeline.sh to have chrX/chrX_methylation.bed file with read informations.
+**Run after stretch_pipeline.sh to get the file chrX/chrX_methylation.bed with the reading information.**
 
 ## Usage
 ```bash
