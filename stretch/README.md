@@ -73,21 +73,48 @@ awk -v Thresh="$thresh" ' $7 >= Thresh' ${reads_analysis_folder}/${chr}/stretch/
 
 
 ### 5. Concatenating final outputs
-These stretch file per chromosom per context are concatenated into one file per context having genome wide stretches information.
+These stretch file per chromosom per context are concatenated into one file per context having genome wide stretches information. Then, statistically significant stretches are extracted using Bonferroni correction.
 
 ```bash
 mkdir ${reads_analysis_folder}/genome_stretch/ -p
 mkdir ${reads_analysis_folder}/bed/ -p
-for context in CG CHG CHH;
-  cat ${reads_analysis_folder}/chr*/stretch/pvalue/${context}_stretch_pvalue_sign.bed > ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch_sign.bed
-  cat ${reads_analysis_folder}/chr*/context/freq/${context}_freq.bed > ${reads_analysis_folder}/bed/${context}_freq.bed 
+
+for context in CG CHG CHH; do
+cat ${reads_analysis_folder}/chr*/stretch/pvalue/${context}_stretch_pvalue.bed > ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch.bed
+thresh=$(echo "-l(0.05/$(cat ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch.bed | wc -l)) / l(10)" | bc -l)
+awk -v Thresh="$thresh" ' $7 >= Thresh' ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch.bed > ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch_sign.bed
+cat ${reads_analysis_folder}/chr*/context/freq/${context}_freq.bed > ${reads_analysis_folder}/bed/${context}_freq.bed 
 done;
 ```
+
+This command line will concatenate all chromosomes frequencies files into one per context.
+```bash
+cat ${reads_analysis_folder}/chr*/context/freq/${context}_freq.bed > ${reads_analysis_folder}/bed/${context}_freq.bed 
+```
+
+
 #### Output : 
 * genome_stretch/CG_genome_stretch_sign.bed
 * bed/CG_freq.bed
 
 
+
+### Parallelization
+
+All 5 chromosomes can be processed in parallel using `&`. But if you are short in RAM memory, you can put `#` on the line `get_stretch $CHR & ` and uncomment `get_stretch $CHR ` to process chromosomes files iteratively (will be longer).
+
+```bash
+for CHR in Chr1 Chr2 Chr3 Chr4 Chr5; do
+
+    # DOING ALL CHROMOSOMS IN PARALLEL : relatively high memory usage
+    get_stretch $CHR & 
+
+    # DOING ONE BY ONE : less memory usage
+    # get_stretch $CHR   
+done
+wait
+```
+Unlike the `ont_to_bam.py` script where the `fast mode` is loading the whole chromosome in RAM memory, here it is only the context files of each chromosome that will be loaded. The parallelization of these file should use less RAM memory than `ont_to_bam.py` in `fast mode`.
 
 <details>
   <summary>Files and folders created</summary>
