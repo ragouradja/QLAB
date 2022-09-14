@@ -1,63 +1,43 @@
 # Stretch detection from DSP tsv file
 
 
-Decription of stretch
-image ?
-
-To be launch after DSP pipeline and the tsv_to_bed script.
-
-
-```bash
-Chr1    16501609        16501610        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501603        16501604        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501600        16501601        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501598        16501599        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501597        16501598        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501592        16501593        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501590        16501591        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501586        16501587        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501585        16501586        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-Chr1    16501582        16501583        073be7c9-69c5-498d-b8c7-b28a6124ca5c    -       0
-```
-
-
+**To be launch after DSP pipeline**
 
 ## How to run
 
 
 Make sure that you put the correct paths for these 4 variables before running the script.
 ```bash
-bed_file=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/methylation.bed
+tsv_file=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/fast5s.C.call_mods.tsv.gz
 reads_analysis_folder=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2/tsv/reads_analysis
 scripts_folder=/mnt/data2/rradjas/scripts
 genome_ref=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_all.fasta
 ```
 
-```bash
-bash QLAB/scripts/stretch_pipeline.sh
-```
+The tsv_file can be a compressed file ending with "gz".
+
 
 ## How it works
 This bash script will first create some intermediate files and folders to optimize the calculations. 
 The steps are : 
+
 ### 1. Extract and sort
-Each chromosom are extracted from the inital bedfile and sorted by : read name, start position. The sort is needed to avoid having decreasing start position in - strand.
-```bash
-grep $CHR $bed_file | sort -T tmp -k4,4 -k2,2n > ${reads_analysis_folder}/${chr}/${chr}_methylation.sort.bed
-```
-#### Output : chrX/chrX_methylation.sort.bed
+From the inital TSV file, this script will extract all 5 chromosomes and cytosines per context of each chromosome.
 
-### 2. Context separation
-Each chromosom file is separated into CG, CHG and CHH context files. 
-```bash
-python ${scripts_folder}/sep_context.py  --file ${reads_analysis_folder}/${chr}/${chr}_methylation.sort.bed \
-                                         --genome $genome_ref \
-                                         --output_dir $reads_analysis_folder/${chr}/context \
-                                         -s 5
-```
-#### Output : chrX/context/CG_context.bed
+`-s` is used to specify the column containing the strand information. `--tsv` indicates that the script will select only required columns for analysis from the TSV file. 
 
-### 3. Methylation frequencies
+```bash
+echo "Getting chr and context files"
+python ${scripts_folder}/separator.py --file $tsv_file \
+                                      -o $reads_analysis_folder \
+                                      --tsv  \
+                                      -s 3
+```
+#### Output : 
+* chrX/chrX_methylation.bed
+* chrX/context/CG_context.bed
+
+### 2. Methylation frequencies
 From each context files, methylation frequencies are computed to create a bedfile.
 ```bash
 python ${scripts_folder}/correct_freq.py --file $reads_analysis_folder/${chr}/context/${context}_context.bed \
@@ -65,6 +45,14 @@ python ${scripts_folder}/correct_freq.py --file $reads_analysis_folder/${chr}/co
 ```
 At the end, all these freq files from all chromosoms are concatened into one file per context with genome wide information.
 #### Output : chrX/context/freq/CG_freq.bed
+
+### 3. Sorting context files
+These files need to be sorted by READ and START_POSITION to avoid having decreasing start position in - strand (which will can be problematic for finding stretch).
+
+```bash
+sort -T tmp -k4,4 -k2,2n $reads_analysis_folder/${chr}/context/${context}_context.bed > $reads_analysis_folder/${chr}/context/${context}_context.sort.bed
+rm  $reads_analysis_folder/${chr}/context/${context}_context.bed 
+```
 
 ### 4. Stretch detection
 Using the bedfile with read informations to detect consecutively methylated cytosines and using the methylation frequencies per position to compute the pvalue for each stretch.
@@ -209,6 +197,3 @@ reads_analysis/
 ```
   
 </details>
-
-## Outputs
-## Known errors
