@@ -59,6 +59,14 @@ def get_args():
 
     if not os.path.exists(args.genome):
         sys.exit("Genome file doesn't exist")
+<<<<<<< HEAD
+=======
+
+    # if args.all:
+    #     if "chr1" not in args.basename_output:
+    #         sys.exit("Make sure that there is 'chr1' in the output basename")
+
+>>>>>>> a9fc7ca41d57055bf212389facc9d23ffb9072c4
     return args
 
 
@@ -84,10 +92,19 @@ def get_chrs_path(args):
     print("Processing all chromosomes in parallel.")
     for i in range(1,6):
         bedfile = re.sub("chr\d",f"chr{i}",path)
+<<<<<<< HEAD
+=======
+        # sam = re.sub("chr\d",f"chr{i}",sam_output)
+        # bam = re.sub("chr\d",f"chr{i}",bam_basename)
+>>>>>>> a9fc7ca41d57055bf212389facc9d23ffb9072c4
 
         if not os.path.exists(bedfile):
             print(f"{path} does not exists")
         else:
+<<<<<<< HEAD
+=======
+            # all_files.append([bedfile, sam, bam])
+>>>>>>> a9fc7ca41d57055bf212389facc9d23ffb9072c4
             all_files.append(bedfile)
     return all_files
 
