@@ -69,7 +69,7 @@ Chr1    9323    -
 ## 2. Cytosines data
 ### 2.1 Processing steps
 
-The raw fast5 reads are converted from multi-read format to single-read format. If your fast5 are already in multi-read format, $raw_mutli_fast5_C can be empty to skip this step.
+The raw fast5 reads are converted from multi-read format to single-read format. If your fast5 are already in multi-read format, *$raw_mutli_fast5_C* can be empty to skip this step.
 
 ```bash
 multi_to_single_fast5 -i $raw_mutli_fast5_C -s $single_fast5 -t 60 --recursive 
@@ -198,7 +198,7 @@ shuf -n 10000000 datasets/A/samples_A_positive.tsv  > datasets/A/samples_A_posit
 pigz datasets/A/samples_A_positive.tsv 
 ```
 
-The negative m6a data are extracted from fast5 reads used to extract cytosines data. If you don't want to use these fast5, you can change $single_fast5 by a new variable ($m6a_single_neg for example) containing path to folder with fast5 to use to extract negative m6a. Make sure that these fast5 have been preprocessed (2.1 Processing steps)
+The negative m6a data are extracted from fast5 reads used to extract cytosines data. If you don't want to use these fast5, you can change *$single_fast5* by a new variable (*$m6a_single_neg* for example) containing path to folder with fast5 to use to extract negative m6a. Make sure that these fast5 have been preprocessed (2.1 Processing steps)
 
 ```bash
 # NEGATIVE          
