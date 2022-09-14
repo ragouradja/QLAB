@@ -70,6 +70,7 @@ Need to be activated with `--fast`. Will read all 5 chromosomes files in paralle
 <p align="center">
 <img src="https://user-images.githubusercontent.com/71189947/190188112-dae6ee8a-211f-4118-a64f-2f35eb4d692e.png" width="700" height="500"/>
 </p>
+Since chr1 is the largest file, it limits the computation time. So if the chr1 file takes 2500 sec to be done, then the whole genome should take also around 2500 sec in slow mode for Col-0 (50X).
 
 # Known errors
 
