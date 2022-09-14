@@ -237,8 +237,9 @@ cat datasets/A/samples_A_positive.10m.tsv  \
 ```
 
 ### 4.1 Training set
-From this file, we create the training set and validation set by selecting 90% and 10% of these 80M (you can change these proportion). These sets are going to be used directly in the training process.
+From this file, we create the training set and validation set by randomly selecting 90% and 10% of these 80M (you can change these proportion). These sets are going to be used directly in the training process.
 
+We can use `head` and `tail` to randomly select lines since we already use `shuf` to shuffle the lines.
 ```bash
 # TRAIN SET (90% of data)
 head -n 72000000  training/concat_A_CG_CHG_CHH.80m.tsv > training/train/samples_A_CG_CHG_CHH.72m.train.tsv
@@ -248,7 +249,10 @@ head -n 72000000  training/concat_A_CG_CHG_CHH.80m.tsv > training/train/samples_
 ```bash
 # VALIDATION SET (10% of data)
 tail -n 8000000  training/concat_A_CG_CHG_CHH.80m.tsv > training/valid/samples_A_CG_CHG_CHH.8m.valid.tsv
+```
 
+The concatenated file can be removed.
+```bash
 rm training/concat_A_CG_CHG_CHH.80m.tsv
 
 ```
