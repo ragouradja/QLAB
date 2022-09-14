@@ -11,14 +11,11 @@ Path to the folder containing raw fast5 with cytosines sequencing data in multi-
 
 If the fast5 are already in single-read format, this variable can be empty (in this case, multi_to_single_fast5 will throw an error that can be ignored)
 
-* single_fast5
-Path to the folder that will contain fast5 in single-read format.
+* single_fast5 : Path to the folder that will contain fast5 in single-read format.
 
-* high_conf_positive_C*
-File with positions of high confidence positive cytosines having methylation level >= 0.9 and >= 5X from BS or / and ONT.
+* high_conf_positive_C* : File with positions of high confidence positive cytosines having methylation level >= 0.9 and >= 5X from BS or / and ONT.
 
-* high_conf_negative_C*
-File with positions of high confidence negative cytosines having methylation level == 0 and >= 5X from BS or / and ONT.
+* high_conf_negative_C* : File with positions of high confidence negative cytosines having methylation level == 0 and >= 5X from BS or / and ONT.
 
 Example of position file with columns Chr end strand: 
 
@@ -36,22 +33,13 @@ Chr1    9323    -
 ```
 
 
-* m6a_raw_mutli_fast5
+* m6a_raw_mutli_fast5 : Same as raw_mutli_fast5_C but for positive m6A.
 
-Same as raw_mutli_fast5_C but for positive m6A.
+* m6a_single_pos : Same as single_fast5 but for positive m6A. Negative data for m6A are extracted from single_fast5.
 
-* m6a_single_pos
+* ref_genome : Path to the reference genome.
 
-Same as single_fast5 but for positive m6A.
-Negative data for m6A are extracted from single_fast5.
-
-* ref_genome
-
-Path to the reference genome.
-
-* script_dir
-
-Folder with balance_pos_neg.py
+* script_dir : Folder with balance_pos_neg.py
 
 ```bash
 raw_mutli_fast5_C=/mnt/data5/rradjas/all_contexts/m6a/test_script/neg
