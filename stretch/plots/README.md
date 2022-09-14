@@ -56,13 +56,18 @@ DRM12CMT3 test_data/DRM12CMT3/CG_genome_stretch.bed 29.57
 To use `--hist` `--violin`, it is preferable to use the files containing statistically significant stretches files : 
 
 ```bash
-$ python stretch_plot.py --file path_stretch_sign.txt --hist --violin
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --violin
 ```
 
 If you want the histogram to be per context, you can use `--hist_context` argument : 
 
 ```bash
-$ python stretch_plot.py --file path_stretch_sign.txt --hist --hist_context
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --hist_context
+                         
 New name of histogram output file : CG_hist.pdf
 You can change it with --output_hist
 Drawing histogram...
@@ -80,7 +85,12 @@ $ python stretch_plot.py --file path_stretch.txt --box
 You can change the title, x_axis or y_axis name (and fontsize) with other argument available. For example, change the output filename, title, ylab and ylab size :
 
 ```bash
-$ python stretch_plot.py --file path_stretch_sign.txt --hist --title_hist "New title" --ylab_hist "New Y lab" --ysize 50 --output_hist new_hist.pdf
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --title_hist "New title" \
+                         --ylab_hist "New Y lab" \
+                         --ysize 50 \
+                         --output_hist new_hist.pdf
 ```
 
 
