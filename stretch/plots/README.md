@@ -75,3 +75,12 @@ To use `--box`,  it is preferable to use the files containing all stretches file
 ```bash
 $ python stretch_plot.py --file path_stretch.txt --box
 ```
+
+## Title, axis name...
+You can change the title, x_axis or y_axis name (and fontsize) with other argument available. For example, change the output filename, title, ylab and ylab size :
+
+```bash
+$ python stretch_plot.py --file path_stretch_sign.txt --hist --title_hist "New title" --ylab_hist "New Y lab" --ysize 50 --output_hist new_hist.pdf
+```
+
+
