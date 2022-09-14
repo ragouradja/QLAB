@@ -1,7 +1,7 @@
 # Histogram, Violin and Box plot for stretches data
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --help
+$ python stretch_plot.py --help
 
 usage: stretch_plot.py [-h] --file FILE [--outdir OUTDIR] [--hist] [--box] [--violin] [--hist_context] [--title_hist]
                        [--title_violin] [--ylab_hist] [--ylab_violin] [--ylab_box] [--output_hist] [--output_violin]
@@ -43,7 +43,7 @@ The `--file` argument is mandatory and need to be a file containing : `NAME | PA
 `NAME` and `PATH` are mandatory, `NORM` can be empty. Example with `NORM` value :
  
 ```bash
-$ cat test_data/data_path.txt
+$ cat data_path.txt
 WT test_data/WT/CG_genome_stretch.bed 53
 CMT3 test_data/CMT3/CG_genome_stretch.bed 16.23
 CMT2 test_data/CMT2/CG_genome_stretch.bed 11.8
@@ -56,13 +56,18 @@ DRM12CMT3 test_data/DRM12CMT3/CG_genome_stretch.bed 29.57
 To use `--hist` `--violin`, it is preferable to use the files containing statistically significant stretches files : 
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --file path_stretch_sign.txt --hist --violin
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --violin
 ```
 
 If you want the histogram to be per context, you can use `--hist_context` argument : 
 
 ```bash
-$ python stretch_plot.py --file path_stretch_sign.txt --hist --hist_context
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --hist_context
+                         
 New name of histogram output file : CG_hist.pdf
 You can change it with --output_hist
 Drawing histogram...
@@ -73,5 +78,19 @@ The default output filename for histogram is `hist_stretch.pdf` but if you ask f
 To use `--box`,  it is preferable to use the files containing all stretches files to see stretch that are not statistically significant and those that are : 
 
 ```bash
-$ python ${script_dir}/stretch_plot.py --file path_stretch.txt --box
+$ python stretch_plot.py --file path_stretch.txt --box
 ```
+
+## Title, axis name...
+You can change the title, x_axis or y_axis name (and fontsize) with other argument available. For example, change the output filename, title, ylab and ylab size :
+
+```bash
+$ python stretch_plot.py --file path_stretch_sign.txt \
+                         --hist \
+                         --title_hist "New title" \
+                         --ylab_hist "New Y lab" \
+                         --ysize 50 \
+                         --output_hist new_hist.pdf
+```
+
+
