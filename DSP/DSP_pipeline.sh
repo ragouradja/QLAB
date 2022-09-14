@@ -1,6 +1,7 @@
 fast5_dir=/mnt/data2/rradjas/ONT/Rdr2/fast5_single
 genome_ref=/mnt/data2/rradjas/assembly/Col-CEN/Col-CEN_v1.2.fasta 
-fastq_file=/mnt/data2/rradjas/ONT/Rdr2/megalodon_output_rdr2/basecalls.fastq
+megalodon_output=megalodon_output_rdr2
+fastq_file=/mnt/data2/rradjas/ONT/Rdr2/${megalodon_output}/basecalls.fastq
 output_dir=/mnt/data2/rradjas/ONT/Rdr2/dsp_rdr2
 raw_fast5=/mnt/data2/rradjas/ONT/Rdr2/raw
 
@@ -14,7 +15,7 @@ megalodon  $fast5_dir \
 --guppy-config  res_dna_r941_min_modbases_5mC_v001.cfg  \
 --guppy-timeout 120 \
 --outputs basecalls \
---output-directory megalodon_output_rdr2 \
+--output-directory ${megalodon_output} \
 --reference /mnt/data2/rradjas/assembly/Col-CEN/Col-CEN_v1.2.fasta \
 --devices 0 --processes 30 --overwrite
 echo END_BASECALLING
