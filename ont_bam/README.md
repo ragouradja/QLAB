@@ -59,7 +59,7 @@ $ python ont_to_bam.py  --file col_test.bed -base all_one --all_in_one
 Mode by default. Will read all 5 chromosomes files in parallel (if `--all` is used) without loading the data into memory. We save RAM memory (using around 0%) but cost more time.
 
 ### Fast mode
-Need to be activated with `--fast`. Wille read all 5 chromosomes files in parallel (if `--all` is used) and will load the data into memory. We save time but cost RAM memory (around 2.5x the total size of BED files)
+Need to be activated with `--fast`. Will read all 5 chromosomes files in parallel (if `--all` is used) and will load the data into memory. We save time but cost RAM memory (around 2.5x the total size of BED files)
 
 #### Memory usage in fast mode
 <p align="center">
@@ -107,26 +107,6 @@ Chr1 / Chr1_RagTag --> custom name of chr
 Custom chr name are not processed correctly for now
 ###
 
-
-###
-input chrom for all; folder architecture :
-
-../data/chr1/meth_chr1.bed
-../data/chr2/meth_chr2.bed
-../data/chr3/meth_chr3.bed
-../data/chr4/meth_chr4.bed
-../data/chr5/meth_chr5.bed
-
-or
-
-../data/chrom_folder/meth_chr1.bed
-../data/chrom_folder/meth_chr2.bed
-../data/chrom_folder/meth_chr3.bed
-../data/chrom_folder/meth_chr4.bed
-../data/chrom_folder/meth_chr5.bed
-###
-
-
 ###
 Polars : 
 
@@ -138,19 +118,4 @@ Solution : pip install typing-extensions --upgrade
 ###
 
 
-###
-KeyError: '0001e11e-a6bd-4a0b-83b3-989a7bdfe519'
---> Read name not found in fasta file : fastaFromBed didn't work
-Solution : Give a genome fasta file with formated lines 
-
-wrong fasta file : 
->Chr1
-sequence chr1 all in one line
->Chr2
-sequence chr2 all in one line
-
-correct fasta file:
->Chr1
-TAAAACCTAAAACCTAAAACCTAAAACCTAAAACCTAAACCCTAAACCCTAAAACCCTAA
-ACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAACCCTAAAACCTAAACCT 
 ```
