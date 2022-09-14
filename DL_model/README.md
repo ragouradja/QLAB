@@ -41,7 +41,7 @@ If the fast5 are already in single-read format, this variable can be empty (in t
 
 * high_conf_negative_C* : File with positions of high confidence negative cytosines having methylation level == 0 and >= 5X from BS or / and ONT.
 
-Example of position file with columns Chr end strand: 
+Example of position file with columns : Chr | end_position | strand
 
 ```bash
 Chr1    3724    -
