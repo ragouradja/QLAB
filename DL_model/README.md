@@ -5,6 +5,30 @@
 # How it works
 
 ## 1. Path variables
+
+
+```bash
+raw_mutli_fast5_C=/mnt/data5/rradjas/all_contexts/m6a/test_script/neg
+single_fast5=single_C
+
+high_conf_positive_CG=/mnt/data5/rradjas/all_contexts/BS_data/CG/poses/methylated_09_5_biseq_CG.bed
+high_conf_negative_CG=/mnt/data5/rradjas/all_contexts/BS_data/CG/poses/unmethylated_0_5_biseq_CG.bed
+
+high_conf_positive_CHG=/mnt/data5/rradjas/all_contexts/BS_data/CHG/poses/methylated_09_5_biseq_CHG.bed
+high_conf_negative_CHG=/mnt/data5/rradjas/all_contexts/BS_data/CHG/poses/unmethylated_0_5_biseq_CHG.bed
+
+high_conf_positive_CHH=/mnt/data5/rradjas/all_contexts/BS_data/CHH/poses/methylated_09_5_biseq_CHH.bed
+high_conf_negative_CHH=/mnt/data5/rradjas/all_contexts/BS_data/CHH/poses/unmethylated_0_5_biseq_CHH.bed
+
+
+m6a_raw_mutli_fast5=/mnt/data5/rradjas/all_contexts/m6a/test_script/pos
+m6a_single_pos=single_A
+ref_genome=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_split.fasta
+
+script_dir=/mnt/data2/rradjas/scripts
+rerio_model=/users/a2e/quadrana/miniconda3/lib/python3.8/site-packages/megalodon/rerio/basecall_models/
+```
+
 * raw_mutli_fast5_C
 
 Path to the folder containing raw fast5 with cytosines sequencing data in multi-read format. These fast5 are going to be converted in single-read format.
@@ -41,27 +65,6 @@ Chr1    9323    -
 
 * script_dir : Folder with balance_pos_neg.py
 
-```bash
-raw_mutli_fast5_C=/mnt/data5/rradjas/all_contexts/m6a/test_script/neg
-single_fast5=single_C
-
-high_conf_positive_CG=/mnt/data5/rradjas/all_contexts/BS_data/CG/poses/methylated_09_5_biseq_CG.bed
-high_conf_negative_CG=/mnt/data5/rradjas/all_contexts/BS_data/CG/poses/unmethylated_0_5_biseq_CG.bed
-
-high_conf_positive_CHG=/mnt/data5/rradjas/all_contexts/BS_data/CHG/poses/methylated_09_5_biseq_CHG.bed
-high_conf_negative_CHG=/mnt/data5/rradjas/all_contexts/BS_data/CHG/poses/unmethylated_0_5_biseq_CHG.bed
-
-high_conf_positive_CHH=/mnt/data5/rradjas/all_contexts/BS_data/CHH/poses/methylated_09_5_biseq_CHH.bed
-high_conf_negative_CHH=/mnt/data5/rradjas/all_contexts/BS_data/CHH/poses/unmethylated_0_5_biseq_CHH.bed
-
-
-m6a_raw_mutli_fast5=/mnt/data5/rradjas/all_contexts/m6a/test_script/pos
-m6a_single_pos=single_A
-ref_genome=/mnt/data2/rradjas/genome/Col-CEN/fasta/Col-CEN_split.fasta
-
-script_dir=/mnt/data2/rradjas/scripts
-rerio_model=/users/a2e/quadrana/miniconda3/lib/python3.8/site-packages/megalodon/rerio/basecall_models/
-```
 
 ## 2. Cytosines data
 ### 2.1 Processing steps
