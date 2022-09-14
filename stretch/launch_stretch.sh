@@ -52,7 +52,6 @@ wait
 
 mkdir ${reads_analysis_folder}/genome_stretch/ -p
 mkdir ${reads_analysis_folder}/bed/ -p
-
 for context in CG CHG CHH; do
 cat ${reads_analysis_folder}/chr*/stretch/pvalue/${context}_stretch_pvalue.bed > ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch.bed
 thresh=$(echo "-l(0.05/$(cat ${reads_analysis_folder}/genome_stretch/${context}_genome_stretch.bed | wc -l)) / l(10)" | bc -l)
