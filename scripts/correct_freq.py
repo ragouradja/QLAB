@@ -21,7 +21,7 @@ def get_args():
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--file", "-f", help="Path to the bedfile with reads information", required = True, type = str)
     parser.add_argument("--output_file", "-o", help="Path to output file", required = True, type = str, default=".")
-    parser.add_argument("--strand_column", "-s", help="Index (1-based) of column containing strand information", required = False, default=3, type = int, metavar = "")
+    parser.add_argument("--strand_column", "-s", help="Index (1-based) of column containing strand information", required = False, default=5, type = int, metavar = "")
     parser.add_argument("--all_chr", "-all", help="If the file contains all chromosomes (slower)", required = False,  default= False, action="store_true")
     args = parser.parse_args()  
     
@@ -53,6 +53,8 @@ def freq_all_chr(dict_meth, output):
             chrom = lines[0][0]
             pos = lines[0][1]
             strand = lines[0][args.strand_column - 1]
+            if strand not in ["+","-"]:
+                sys.exit("Specify the correct column containing strand information (-s option)")
             cov = lines.shape[0]
             meth = round(lines[:,-1].sum() / cov,4)
             content = f"{chrom}\t{pos}\t{pos + 1}\t{strand}\t{meth}\t{cov}\n"    
