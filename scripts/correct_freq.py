@@ -52,7 +52,7 @@ def freq_all_chr(dict_meth, output):
             lines = dict_meth[chr_pos]
             chrom = lines[0][0]
             pos = lines[0][1]
-            strand = lines[0][2]
+            strand = lines[0][args.strand_column - 1]
             cov = lines.shape[0]
             meth = round(lines[:,-1].sum() / cov,4)
             content = f"{chrom}\t{pos}\t{pos + 1}\t{strand}\t{meth}\t{cov}\n"    
