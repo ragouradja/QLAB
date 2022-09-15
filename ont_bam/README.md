@@ -124,7 +124,17 @@ You can also remove the old file if everything went well.
 ## Chromosome error
 
 ```bash
-KeyError: 'Chr5' 
+Running slow mode
+Reading genome...
+Done
+Traceback (most recent call last):
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 280, in <module>
+    run_function(bedfile, SAM_output, BAM_output, args.genome, args)
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 248, in main_slow
+    create_sam_slow(bedfile_path, SAM_output, BAM_output, genome, args, chrom_name)
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 162, in create_sam_slow
+    seq = genome[prev_chrom][first_position:last_position]
+KeyError: 'Chr5'
 ```
 You need to use `--all_in_one` to specify that in your file, there is all chromosomes.
  
