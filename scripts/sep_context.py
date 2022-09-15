@@ -1,16 +1,4 @@
-"""Separate 5mc  into 3 context CG CHG and CHH from genome reference and bedfile
-
-bedfile format 
-Chr1    617     618     .       1       -       617     618     0,0,0   1       0.0 
-
-Usage
------
-
-python sep_context.py bedfile.bed genome_reference.fa
-
-Return
-------
-CG_context.bed, CHG_context.bed, CHH_context.bed files
+"""Separate methylation data into 4 context CG CHG, CHH and A from genome reference and bedfile
 """
 import sys
 import argparse

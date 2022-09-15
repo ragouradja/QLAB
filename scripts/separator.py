@@ -1,4 +1,4 @@
-"""Separate into 3 context CG CHG CHH and A from TSV with kmer"""
+"""Separate TSV file in chromosomes and in context (CG, CHG, CHH, A)"""
 
 import sys
 import argparse

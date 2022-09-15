@@ -1,4 +1,4 @@
-"""Bam to bed from sam file"""
+"""Bam to bed from sam file (BISEQ data) """
 
 import sys
 import os

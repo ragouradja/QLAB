@@ -1,3 +1,5 @@
+"""Getting methylation frequencies"""
+
 import re
 import pandas as pd
 import time
