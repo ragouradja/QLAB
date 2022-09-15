@@ -44,3 +44,7 @@ which can be installed with
 ```bash
 sudo apt install pigz 
 ```
+
+
+# CONTACT
+If there is any problems with the scripts, please contact me at : radja.ragou@gmail.com
