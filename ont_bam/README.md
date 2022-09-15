@@ -121,7 +121,7 @@ done
 ```
 You can also remove the old file if everything went well.
 
-## Chromosome error
+## KeyError: 'Chr5'
 
 ```bash
 Running slow mode
@@ -137,7 +137,46 @@ Traceback (most recent call last):
 KeyError: 'Chr5'
 ```
 You need to use `--all_in_one` to specify that in your file, there is all chromosomes.
+
+## ValueError: invalid literal for int() with base 10: 'C'
+
+```bash
+Running fast mode
+Reading genome...
+Done
+ :: Loading dataframe...
+ :: Dataframe loaded in 1.46s
+ :: Start memory optimisation
+Traceback (most recent call last):
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 280, in <module>
+    run_function(bedfile, SAM_output, BAM_output, args.genome, args)
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 235, in main_fast
+    df_dict = get_dict(bedfile_path, chrom_name)
+  File "/mnt/data5/rradjas/QLAB/scripts/ont_to_bam.py", line 89, in get_dict
+    meth_dtf["chr"] = meth_dtf["chr"].apply(lambda chrom: chrom[-1]).astype(np.int8)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/generic.py", line 5912, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/internals/managers.py", line 419, in astype
+    return self.apply("astype", dtype=dtype, copy=copy, errors=errors)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/internals/managers.py", line 304, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/internals/blocks.py", line 580, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/dtypes/cast.py", line 1292, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/dtypes/cast.py", line 1237, in astype_array
+    values = astype_nansafe(values, dtype, copy=copy)
+  File "/mnt/data2/rradjas/.conda/envs/TE/lib/python3.10/site-packages/pandas/core/dtypes/cast.py", line 1154, in astype_nansafe
+    return lib.astype_intsafe(arr, dtype)
+  File "pandas/_libs/lib.pyx", line 668, in pandas._libs
+  ValueError: invalid literal for int() with base 10: 'C'
+ ```
  
+You need to remove lines from ChrC and ChrM with : 
+```bash
+grep -v  'ChrC\|ChrM' file
+```
+
 ## Packages
 Polars : 
 ```bash
