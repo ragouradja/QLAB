@@ -14,7 +14,7 @@ Then :
 
 Create the conda environment : 
     
-    $ conda env create -f env/env.yml
+    $ conda env create -f env/env.yaml
 Load the conda environment : 
     
     $ conda activate ont_env
