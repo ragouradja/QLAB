@@ -96,7 +96,7 @@ def get_dict(read_file, chrom_name):
 
 def change_base(sequence, positions, base):
     for i in positions:
-        sequence[i] = base
+        sequence[i] = "N"
     return sequence
 
 def write_sam(read, flag, chrom, start, seq, file_out):
