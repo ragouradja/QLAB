@@ -23,7 +23,7 @@ def get_args():
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--file", "-f", help="Path to the bedfile with reads information", required = True, type = str)
     parser.add_argument("--output_file", "-o", help="Path to output file", required = True, type = str, default=".")
-    parser.add_argument("--all_chr", "-all", help="If the file contains all chromosomes (slower)", required = False,  default= False, action="store_true")
+    parser.add_argument("--one_chr", "-all", help="If the file contains only one chromosome (faster)", required = False,  default= False, action="store_true")
     args = parser.parse_args()  
     
     if not os.path.exists(args.file):
@@ -38,7 +38,7 @@ def get_dict(meth_file):
     print("load",time.time() - start_time)
 
     start_time = time.time()
-    if args.all_chr:
+    if args.one_chr:
         dtf["id"] = dtf['chr'] + "_" + dtf['start'].astype(str)
         dict_meth = dtf.set_index("id").groupby("id").apply(lambda g: g.values).to_dict()
     else:
@@ -78,9 +78,9 @@ if __name__ == "__main__":
     output = args.output_file
     dict_meth = get_dict(meth_file)   
 
-    if args.all_chr:
-        freq_all_chr(dict_meth, output)
-    else:
+    if args.one_chr:
         freq(dict_meth, output)
+    else:
+        freq_all_chr(dict_meth, output)
 
     print("Done in ", time.time() - start_time)
