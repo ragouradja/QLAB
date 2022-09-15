@@ -1,6 +1,22 @@
 # QLAB
 
 ## Conda environment
+
+Clone this repository : 
+
+    $ git clone git@github.com:ragouradja/Projet_threading.git
+Or : 
+
+    $ git clone https://github.com/ragouradja/Projet_threading.git
+Then :
+
+    $ cd Projet_threading
+
+Load the conda environment : 
+    
+
+    $ conda env create -f env/threading.yml
+    
 ## Knowns errors
 
 If all fast5 failed during Tombo or DSP, you need to add `export HDF5_PLUGIN_PATH...` variable in your bashrc with the correct path to hdf5 plugin that you will download :
