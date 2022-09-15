@@ -121,8 +121,13 @@ done
 ```
 You can also remove the old file if everything went well.
 
+## Chromosome error
 
-
+```bash
+KeyError: 'Chr5' 
+```
+You need to use `--all_in_one` to specify that in your file, there is all chromosomes.
+ 
 ## Packages
 Polars : 
 ```bash
