@@ -172,7 +172,10 @@ Traceback (most recent call last):
   ValueError: invalid literal for int() with base 10: 'C'
  ```
  
-You need to remove lines from ChrC and ChrM.
+You need to remove lines from ChrC and ChrM with : 
+```bash
+grep -v  'ChrC\|ChrM' file
+```
 
 ## Packages
 Polars : 
