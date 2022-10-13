@@ -1,5 +1,7 @@
 # QLAB
 
+## Update
+* 13/10/22 : Adding comments to ont_to_bam.py
 ## Conda environment
 
 Clone this repository : 
